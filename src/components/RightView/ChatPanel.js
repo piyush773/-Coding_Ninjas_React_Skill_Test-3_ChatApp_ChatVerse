@@ -16,7 +16,7 @@ const Chat = () => {
             <img
               src={data.user.photoURL}
               style={data.user.photoURL ? null : { display: "none" }}
-            />
+            alt="userProfile"/>
           ) : null}
           {data.user?.displayName}
         </span>

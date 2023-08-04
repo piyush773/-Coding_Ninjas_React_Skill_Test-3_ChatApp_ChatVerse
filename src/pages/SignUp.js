@@ -10,7 +10,7 @@ import { useNavigate, Link } from "react-router-dom";
 const SignUp = () => {
   // use state function for image submit button and loading screen
   const [img, setImg] = useState(null);
-  const [loading, setLoading] = useState(false);
+  // const [loading, setLoading] = useState(false);
   const [submit, setSubmit] = useState(false);
   // navigate for page movement
   const navigate = useNavigate();
@@ -26,7 +26,7 @@ const SignUp = () => {
     const email = e.target[1].value?.trim();
     const password = e.target[2].value?.trim();
     const confirmPassword = e.target[3].value?.trim();
-    const file = e.target[4].files[0];
+    // const file = e.target[4].files[0];
     if (password !== confirmPassword) {
       return toast.warn("Password and confirmPassword not matched!...", {
         position: "top-right",
@@ -40,7 +40,7 @@ const SignUp = () => {
       });
     }
     try {
-      setLoading(true);
+      // setLoading(true);
       // firebase new user create function
       const res = await createUserWithEmailAndPassword(auth, email, password);
 
@@ -72,14 +72,14 @@ const SignUp = () => {
                 theme: "colored",
               });
               navigate("/");
-              setLoading(false);
+              // setLoading(false);
             } catch (err) {
               toast.error(err, {
                 position: "top-right",
                 theme: "colored",
               });
 
-              setLoading(false);
+              // setLoading(false);
             }
             // Signed in
           });
@@ -106,14 +106,14 @@ const SignUp = () => {
             theme: "colored",
           });
           navigate("/");
-          setLoading(false);
+          // setLoading(false);
         } catch (err) {
           toast.error(err, {
             position: "top-right",
             theme: "colored",
           });
 
-          setLoading(false);
+          // setLoading(false);
         }
       }
     } catch (err) {
@@ -122,7 +122,7 @@ const SignUp = () => {
         theme: "colored",
       });
 
-      setLoading(false);
+      // setLoading(false);
     }
   };
 

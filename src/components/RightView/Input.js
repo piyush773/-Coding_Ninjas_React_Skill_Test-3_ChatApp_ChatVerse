@@ -1,13 +1,12 @@
-import {arrayUnion,doc,serverTimestamp,Timestamp,updateDoc,} from "firebase/firestore";
+import { arrayUnion, doc, serverTimestamp, Timestamp, updateDoc } from "firebase/firestore";
 import React, { useContext, useState } from "react";
 import { AuthContext } from "../../context/AuthContext";
 import { ChatContext } from "../../context/ChatContext";
-
 import { v4 as uuid } from "uuid";
 import { getDownloadURL, ref, uploadBytesResumable } from "firebase/storage";
 import { db, storage } from "../../database/firebase";
 import { toast } from "react-toastify";
-import Picker, { EmojiClickData, Emoji, SkinTones } from "emoji-picker-react";
+import Picker, { Emoji, SkinTones } from "emoji-picker-react";
 import SendIcon from "../../assets/images/sendIcon.png";
 import ImageIcon from "../../assets/images/image.png";
 
@@ -24,7 +23,16 @@ const Input = () => {
 
   // handled send message
   const handledSendMessage = async () => {
-    // if user want to send image this will handled that
+    // Trim the text to remove leading and trailing whitespace
+    const trimmedText = text.trim();
+
+    // Check if the trimmed text is empty
+    if (!trimmedText) {
+      // If the trimmed text is empty, do not send the message
+      return;
+    }
+
+    // if user wants to send an image, this will be handled here...
     if (img) {
       const storageRef = ref(storage, uuid());
 
@@ -41,7 +49,7 @@ const Input = () => {
             await updateDoc(doc(db, "chats", data.chatId), {
               messages: arrayUnion({
                 id: uuid(),
-                text,
+                text: trimmedText,
                 senderId: currentUser.uid,
                 date: Timestamp.now(),
                 img: downloadURL,
@@ -54,7 +62,7 @@ const Input = () => {
       await updateDoc(doc(db, "chats", data.chatId), {
         messages: arrayUnion({
           id: uuid(),
-          text,
+          text: trimmedText,
           senderId: currentUser.uid,
           date: Timestamp.now(),
         }),
@@ -63,13 +71,13 @@ const Input = () => {
 
     await updateDoc(doc(db, "userChats", currentUser.uid), {
       [data.chatId + ".lastMessage"]: {
-        text,
+        text: trimmedText,
       },
       [data.chatId + ".date"]: serverTimestamp(),
     });
     await updateDoc(doc(db, "userChats", data.user.uid), {
       [data.chatId + ".lastMessage"]: {
-        text,
+        text: trimmedText,
       },
       [data.chatId + ".date"]: serverTimestamp(),
     });
@@ -77,6 +85,7 @@ const Input = () => {
     setText("");
     setImg(null);
   };
+
   const handleKeyDown = (e) => {
     if (e.key === "Enter") {
       handledSendMessage();
@@ -88,6 +97,7 @@ const Input = () => {
     const emoji = String.fromCodePoint(`0x${unified}`);
 
     setText(text + emoji);
+    setSelectedEmoji(emoji);
     setShowEmojiPicker(false);
   };
 
@@ -104,7 +114,6 @@ const Input = () => {
       {selectedEmoji ? (
         <Emoji
           emoji={selectedEmoji}
-          size={16}
           native={true}
           onClick={handleEmojiClick}
         />
@@ -148,7 +157,9 @@ const Input = () => {
             }
           ></i>
         </button>
-        <button onClick={handledSendMessage}><img src={SendIcon} /></button>
+        <button onClick={handledSendMessage}>
+          <img src={SendIcon} alt="send" />
+        </button>
       </div>
     </div>
   );

@@ -19,7 +19,10 @@
 
 /* Styling for the form container */
 .formContainer {
-  background-image: linear-gradient(140deg, blue, #b71717);
+  background-image: url("../images/background.jpg");
+  background-repeat: no-repeat;
+  background-size: cover;
+  width: 100%;
   height: 100vh;
   display: flex;
   align-items: center;
@@ -27,17 +30,19 @@
 
   /* Styling for the form wrapper inside the container */
   .formWrapper {
-    border: 1px solid #ffffff;
-    color: #FFFFFF;
+    backdrop-filter: blur(15px) saturate(177%);
+    -webkit-backdrop-filter: blur(15px) saturate(177%);
+    background-color: rgba(17, 25, 40, 0.41);
+    border-radius: 12px;
+    border: 1px solid rgba(255, 255, 255, 0.125);
     padding: 20px 60px;
-    border-radius: 7px;
     display: flex;
     flex-direction: column;
     gap: 10px;
     align-items: center;
 
-    /* Styling for the profile image */
-    .profileImg {
+    /*Styling for the profile image*/
+    .profileImg{
       width: 200px;
       height: 200px;
       border-radius: 50%;
@@ -46,13 +51,14 @@
     /* Styling for heading elements h4 and h5 */
     h4,
     h5 {
+      color: #FFFFFF;
       margin-top: -2px;
       margin-bottom: 12px;
     }
 
     /* Styling for the button element */
     button {
-      background-color: #f50000;
+      background-color: #db1f48;
       color: #FFFFFF;
       border-radius: 4px;
       font-size: 12px;
@@ -89,7 +95,7 @@
         border: none;
         outline: none;
         background-color: transparent;
-        border-bottom: 1px solid #a7bcff;
+        border-bottom: 1px solid #a3a3b0;
 
         &::placeholder {
           color: rgb(175, 175, 175);
@@ -113,7 +119,6 @@
 
       /* Styling for the button inside the form */
       button {
-        background-image: radial-gradient(circle 248px at center, #16d9e3 0%, #30c7ec 47%, #46aef7 100%);
         font-size: large;
         border-radius: 2px;
         padding: 10px 14px 28px 14px;
@@ -132,15 +137,16 @@
 
     /* Styling for the paragraph element inside the form */
     p {
-      color: #FFFFFF;
+      color: #929898;
       font-size: 12px;
       font-weight: 600;
       margin-top: 2px;
 
       /* Styling for the anchor tag inside the paragraph */
       a {
-        color: #8e92fe;
-        font-weight: 800;
+        font-size: smaller;
+        color:#FFFFFF;
+        font-weight: 700;
       }
     }
   }
@@ -148,7 +154,9 @@
 
 /* Styling for the home container */
 .home {
-  background-image: linear-gradient(140deg, blue, #b71717);
+  background-image: url("../images/background.jpg");
+  background-repeat: no-repeat;
+  background-size: cover;
   height: 100vh;
   display: flex;
   align-items: center;
@@ -156,7 +164,7 @@
 
   /* Styling for the container inside the home */
   .container {
-    border: 1px solid rgb(85, 85, 85);
+    border: 1px solid rgb(80, 78, 78);
     border-radius: 10px;
     width: 60%;
     height: 85vh;
@@ -171,14 +179,14 @@
     /* Styling for the sidebar */
     .sidebar {
       flex: 1;
-      background-color: #3e3c61;
+      background-color: #1e0c07;
       position: relative;
 
       /* Styling for the navbar inside the sidebar */
       .navbar {
         display: flex;
         align-items: center;
-        background-color: #2f2d52;
+        background-color: #120101c2;
         height: 50px;
         padding: 10px;
         justify-content: space-between;
@@ -224,7 +232,7 @@
 
           /* Styling for the button inside the user info */
           button {
-            background-color: #5d5b8d;
+            background-color: #de0c41;
             color: #ddddf7;
             font-size: 10px;
             border: none;
@@ -279,7 +287,7 @@
 
         /* Hover effect */
         &:hover {
-          background-color: #2f2d52;
+          background-color: #351f1b;
         }
 
         /* Styling for the user image inside the user chat */
@@ -314,7 +322,7 @@
       /* Styling for the chat info section */
       .chatInfo {
         height: 50px;
-        background-color: #5d5b8d;
+        background-color: #2a140f;
         display: flex;
         align-items: center;
         justify-content: space-between;
@@ -323,10 +331,11 @@
 
         /* Styling for the span with the chat user info */
         span {
+          color: #FFFFFF;
           display: flex;
           align-items: center;
           gap: 12px;
-          font-weight: bold;
+          font-weight: 600;
           padding-right: 1rem;
 
           /* Styling for the user image inside the span */
@@ -400,7 +409,7 @@
             /* Styling for the message text */
             p {
               color: #FFFFFF;
-              background-color: rgb(249, 170, 42);
+              background-color: rgb(249, 157, 9);
               padding: 10px 20px;
               border-radius: 0px 10px 10px 10px;
               max-width: max-content;
@@ -408,8 +417,8 @@
 
             /* Styling for the message image */
             img {
-              width: 50%;
-              height: 50%;
+              width: 65%;
+              height: 55%;
             }
           }
 
@@ -422,7 +431,7 @@
               align-items: flex-end;
             }
             p {
-              background-color: hsl(241, 62%, 53%);
+              background-color: hsl(241, 88%, 61%);
               color: white;
               border-radius: 10px 0px 10px 10px;
             }
