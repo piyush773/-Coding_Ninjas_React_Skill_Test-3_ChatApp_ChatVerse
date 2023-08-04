@@ -11,29 +11,30 @@ import SendIcon from "../../assets/images/sendIcon.png";
 import ImageIcon from "../../assets/images/image.png";
 
 const Input = () => {
-  // useState for text and img send to the user
   const [text, setText] = useState("");
   const [img, setImg] = useState(null);
   const [showEmojiPicker, setShowEmojiPicker] = useState(false);
   const [selectedEmoji, setSelectedEmoji] = useState("");
+  const [sendingImage, setSendingImage] = useState(false);
 
-  // get current user using use context
   const { currentUser } = useContext(AuthContext);
   const { data } = useContext(ChatContext);
 
-  // handled send message
   const handledSendMessage = async () => {
-    // Trim the text to remove leading and trailing whitespace
     const trimmedText = text.trim();
 
-    // Check if the trimmed text is empty
-    if (!trimmedText) {
-      // If the trimmed text is empty, do not send the message
+    if (!trimmedText && !img) {
+      console.log("No text or image selected!");
       return;
     }
 
-    // if user wants to send an image, this will be handled here...
-    if (img) {
+    console.log("img:",img);
+    console.log("sendingImage Before if:",sendingImage);
+
+    if (img && !sendingImage) {
+      console.log("sendingImage After if:", !sendingImage);
+      setSendingImage(true);
+
       const storageRef = ref(storage, uuid());
 
       const uploadTask = uploadBytesResumable(storageRef, img);
@@ -43,26 +44,34 @@ const Input = () => {
             position: "top-right",
             theme: "colored",
           });
+          setSendingImage(false); // Reset sendingImage state if there's an error
         },
         () => {
           getDownloadURL(uploadTask.snapshot.ref).then(async (downloadURL) => {
+            const imageName = img.name;
+            const messageContent = trimmedText || `${imageName}`;
+
             await updateDoc(doc(db, "chats", data.chatId), {
               messages: arrayUnion({
                 id: uuid(),
-                text: trimmedText,
+                text: messageContent,
                 senderId: currentUser.uid,
                 date: Timestamp.now(),
                 img: downloadURL,
               }),
             });
+            setSendingImage(false); // Reset sendingImage state after sending
           });
         }
       );
     } else {
+      const imageName = img ? img.name : "";
+      const messageContent = trimmedText || `${imageName}`;
+
       await updateDoc(doc(db, "chats", data.chatId), {
         messages: arrayUnion({
           id: uuid(),
-          text: trimmedText,
+          text: messageContent,
           senderId: currentUser.uid,
           date: Timestamp.now(),
         }),
@@ -75,6 +84,7 @@ const Input = () => {
       },
       [data.chatId + ".date"]: serverTimestamp(),
     });
+
     await updateDoc(doc(db, "userChats", data.user.uid), {
       [data.chatId + ".lastMessage"]: {
         text: trimmedText,
