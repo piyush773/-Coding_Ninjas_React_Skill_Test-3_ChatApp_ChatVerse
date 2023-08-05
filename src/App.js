@@ -9,7 +9,7 @@ function App() {
   // current user details through useContext
   const { currentUser } = useContext(AuthContext);
 
-  // protected route for not logged users 
+  // protected route for not logged users
   const ProtectedRoute = ({ children }) => {
     if (!currentUser) {
       return <Navigate to={"/login"} />;
@@ -20,7 +20,7 @@ function App() {
 
   return (
     <div className="App">
-      <BrowserRouter basename="/my-chat-app">
+      <BrowserRouter basename="/ChatVerse">
         <ToastContainer/>
         <Routes>
           {/* Define the main route with a component or element */}
