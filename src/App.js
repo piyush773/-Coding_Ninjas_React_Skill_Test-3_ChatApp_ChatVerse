@@ -1,6 +1,6 @@
-import { Home, SignIn, SignUp, Profile, NotFound } from "./pages";
+import { Home, SignIn, SignUp, Profile, NotFound } from "./pages/index";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
-import "./assets/Styles/style.scss";
+import "./assets/stylesheet/style.scss";
 import { useContext } from "react";
 import { AuthContext } from "./context/AuthContext";
 import { ToastContainer } from "react-toastify";
