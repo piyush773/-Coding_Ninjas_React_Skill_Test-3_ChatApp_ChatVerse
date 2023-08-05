@@ -28,11 +28,17 @@ const Input = () => {
       return;
     }
 
+    let messageContent = trimmedText;
+
+    if (!messageContent && img) {
+      messageContent = img.name;
+    }
+
     console.log("img:",img);
-    console.log("sendingImage Before if:",sendingImage);
+    console.log("sendingImage Before if statement:",sendingImage);
 
     if (img && !sendingImage) {
-      console.log("sendingImage After if:", !sendingImage);
+      console.log("sendingImage After if statement:", !sendingImage);
       setSendingImage(true);
 
       const storageRef = ref(storage, uuid());

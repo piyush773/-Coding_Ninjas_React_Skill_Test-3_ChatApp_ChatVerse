@@ -1,24 +1,29 @@
 import React, { useContext, useState } from "react";
-import {collection,query,where,getDocs,setDoc,doc,updateDoc,serverTimestamp,getDoc} from "firebase/firestore";
+import {
+  collection,
+  query,
+  where,
+  getDocs,
+  doc,
+  updateDoc,
+  serverTimestamp,
+  getDoc,
+} from "firebase/firestore";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { db } from "../../database/firebase";
 import { AuthContext } from "../../context/AuthContext";
 
 const Search = () => {
-  // use state for user name user and error
   const [userName, setUserName] = useState("");
   const [user, setUser] = useState(null);
   const [err, setErr] = useState(false);
-
-  // get current user using use context
   const { currentUser } = useContext(AuthContext);
 
-  // this will handled search function
   const handledSearch = async () => {
     if (userName === currentUser.displayName) {
       setErr(true);
-      toast.warn("You can't add your self as Your friends", {
+      toast.warn("You can't add yourself as a friend", {
         position: "top-right",
         theme: "colored",
       });
@@ -33,28 +38,34 @@ const Search = () => {
     try {
       const querySnapshot = await getDocs(q);
 
-      if (querySnapshot.docChanges().length < 1) {
+      if (querySnapshot.empty) {
         setErr(true);
+        console.log("No documents found.");
         return;
       }
       setErr(false);
+
       querySnapshot.forEach((doc) => {
-        setUser(doc.data());
+        const userData = doc.data();
+        if (userData) {
+          console.log("User data:", userData);
+          setUser(userData);
+        } else {
+          console.log("Document data is empty or not an object:", doc.data());
+          setErr(true);
+        }
       });
     } catch (err) {
-      console.log("error ", err);
+      console.error("Error fetching user data:", err);
       setErr(true);
     }
   };
 
-  // after enter user details fetched
   const handleKey = (e) => {
     e.code === "Enter" && handledSearch();
   };
 
-  // this function will handled select chat function it will add as user friend
   const handledSelectChat = async () => {
-    //check whether the group(chats in firestore) is exists or not, if not
     const combineId =
       currentUser.uid > user.uid
         ? currentUser.uid + user.uid
@@ -63,10 +74,8 @@ const Search = () => {
     try {
       const res = await getDoc(doc(db, "chats", combineId));
       if (!res.exists()) {
-        //Create user chats collections
         await setDoc(doc(db, "chats", combineId), { messages: [] });
 
-        //create user chats
         await updateDoc(doc(db, "userChats", currentUser.uid), {
           [combineId + ".userInfo"]: {
             uid: user.uid,
@@ -85,7 +94,9 @@ const Search = () => {
           [combineId + ".date"]: serverTimestamp(),
         });
       }
-    } catch (err) {}
+    } catch (err) {
+      console.error("Error while adding user as friend:", err);
+    }
     setUser(null);
     setUserName("");
   };
