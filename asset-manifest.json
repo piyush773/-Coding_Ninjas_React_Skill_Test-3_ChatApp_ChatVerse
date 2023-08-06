@@ -1,0 +1,15 @@
+{
+  "files": {
+    "main.css": "/Coding_Ninjas_React_Skill_Test-3_ChatApp_ChatVerse/static/css/main.889b8daa.css",
+    "main.js": "/Coding_Ninjas_React_Skill_Test-3_ChatApp_ChatVerse/static/js/main.21627df1.js",
+    "static/media/background.jpg": "/Coding_Ninjas_React_Skill_Test-3_ChatApp_ChatVerse/static/media/background.201c0bb665ad38850d1d.jpg",
+    "static/media/image.png": "/Coding_Ninjas_React_Skill_Test-3_ChatApp_ChatVerse/static/media/image.01425ce7e7e492a9c275.png",
+    "index.html": "/Coding_Ninjas_React_Skill_Test-3_ChatApp_ChatVerse/index.html",
+    "main.889b8daa.css.map": "/Coding_Ninjas_React_Skill_Test-3_ChatApp_ChatVerse/static/css/main.889b8daa.css.map",
+    "main.21627df1.js.map": "/Coding_Ninjas_React_Skill_Test-3_ChatApp_ChatVerse/static/js/main.21627df1.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.889b8daa.css",
+    "static/js/main.21627df1.js"
+  ]
+}
