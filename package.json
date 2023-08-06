@@ -1,8 +1,8 @@
 {
   "homepage": "https://piyush773.github.io/Coding_Ninjas_React_Skill_Test-3_ChatApp_ChatVerse",
-  "name": "chatverse",
+  "name": "chat_verse",
   "version": "0.1.0",
-  "private": true,
+  "private": false,
   "dependencies": {
     "@firebase/webchannel-wrapper": "^0.10.1",
     "@remix-run/router": "^1.7.2",
